@@ -15,7 +15,7 @@ if (isset($_POST['logout'])) {
 <head>
     <meta charset="UTF-8">
     <title>Lecturer  Dashboard - resshare</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -31,10 +31,39 @@ if (isset($_POST['logout'])) {
 
 </head>
 <body>
-<h2>resshare</h2>
-<p>Welcome to your Lecturers' dashboard</p>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <button name="logout">Logout</button>
-</form>
+
+<?php
+require "nav-bar-lecturers.html";
+?>
+
+<div class="container">
+    <div class="jumbotron">
+            <h2>Lecturer</h2>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Dashboard</h3>
+            <div>
+                <h5>Details</h5>
+                <p>Name: </p>
+                <p>Email:</p>
+            </div>
+            <div>
+                <h5>Operations</h5>
+                <ul>
+                    <li><a href="create-group.php">Create Groups</a></li>
+                    <li>View Groups</li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            Here goes the rest of the content
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

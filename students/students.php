@@ -32,7 +32,7 @@ if (isset($_POST['logout'])) {
 </head>
 <body>
 <?php
-require "nav-bar.html";
+require "nav-bar-students.html";
 ?>
 <h4>Student Dashboard</h4>
 <div class="container">

@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    background-image: url("../img/unsplash.jpg");
+    background-image: url("../img/freddie.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,3 +10,4 @@ body, html {
     display: flex;
 
 }
+
