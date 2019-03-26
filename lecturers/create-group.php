@@ -6,8 +6,14 @@ if (!isset($_SESSION['email'])){
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: index.php');
-
 }
+//connect to database
+require '../scripts/db.php';
+
+    $sql= "SELECT * FROM students WHERE grp_id IS NULL";
+    $result = mysqli_query($dbcon, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +21,7 @@ if (isset($_POST['logout'])) {
 <head>
     <meta charset="UTF-8">
     <title>Lecturer  Dashboard - resshare</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="..css/style.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -64,10 +70,24 @@ require "nav-bar-lecturers.html";
                 <div class="form-group">
                     <p>Name of Group:</p>
                     <p><input type="text" name="grp_name"  required class="form-control"></p>
-                    <p>Select students to add to Group
-                    <select>
-                        <option>Student 1</option>
-                    </select>
+                    <p>Select students to add to Group</p>
+
+                        <?php
+                        echo "<select size = 10>";
+                        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+
+                            echo '<option value="' . $row['student_id'] . '">'  . $row['fname'] . " " . $row['lname'] . '</option>';
+
+
+                            #$select.='</select>';
+
+                        }
+                        echo "<select>";
+                        ?>
+
+
+
                         <button>Add</button>
                     </p>
                 </div>

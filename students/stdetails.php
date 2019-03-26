@@ -8,9 +8,9 @@ if (!isset($_SESSION['email'])){
 if (isset($_POST['submit'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-    $email = $_SESSION['sessid'];
+    $email = $_SESSION['email'];
 
-    require_once 'db.php';
+    require_once '../scripts/db.php';
     if ($dbcon === false) {
         die("Error: Could not connect to database" . mysqli_error());
     } else {
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>resshare - Enabling groups to share and review research papers</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">

@@ -4,33 +4,36 @@ session_start();
 if (isset($_POST['login'])){
 
     //connect to database
-    require_once 'scripts/db.php';
+    require 'scripts/db.php';
 
     $email = mysqli_real_escape_string($dbcon, $_POST['email']);
     $password = mysqli_real_escape_string($dbcon, $_POST['password']);
     $password = password_hash($password, PASSWORD_DEFAULT);
-    $user_cat = mysqli_real_escape_string($dbcon, $_POST['user_cat']);
-    $fname = mysqli_real_escape_string($dbcon, $_POST['fname']);
-    $lname = mysqli_real_escape_string($dbcon, $_POST['lname']);
-
+    $user_cat = $_POST['user_cat'];
+    #$fname = mysqli_real_escape_string($dbcon, $_POST['fname']);
+    #$lname = mysqli_real_escape_string($dbcon, $_POST['lname']);
 
     if ($dbcon === false) {
         die("Error: Could not connect to database" . mysqli_connect_error());
     } else {
 
     //run query and select user and check combination is in same row
-    $sql = "INSERT INTO users (email, password, fname, lname, user_cat)  VALUES ('$email', '$password', '$fname', '$lname', '$user_cat')";
+    $sql = "INSERT INTO users (email, password, user_cat)  VALUES ('$email', '$password', '$user_cat')";
     if (mysqli_query($dbcon, $sql)) {
-        $_SESSION['email'] = array($email, $user_cat);
 
-        if ($user_cat = "Lecturer") {
-            header('Location: lecturers/lecturers.php');
 
+        if ($user_cat == "Lecturer") {
+            header('Location: lecturers/ledetails.php');
+
+        } elseif ($user_cat == "Student") {
+
+               header('Location: students/stdetails.php');
         } else {
-           header('Location: students/students.php');
+            echo "Invalid user category!";
         }
 
-
+        $_SESSION['email'] = $email;
+        $_SESSION['user_cat'] = $user_cat;
     } else{
         echo "Error: Could not execute." . mysqli_error();
 
@@ -98,8 +101,8 @@ if (isset($_POST['login'])){
     <p>Your password: <input type="password" name="password" required class="form-control"></p>
         <!-- <span><?php echo $passwordErr ;?></span> -->
 
-    <p>Your first name: <input required name="fname" class="form-control">   </p>
-    <p>Your last name: <input required name="lname" class="form-control">   </p>
+    <!--<p>Your first name: <input required name="fname" class="form-control">   </p>
+    <p>Your last name: <input required name="lname" class="form-control">   </p> -->
 
         <button type="submit" name="login" class="btn btn-block btn-dark">Sign up</button>
 </form>

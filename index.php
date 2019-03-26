@@ -17,14 +17,14 @@ if (isset($_POST['login'])){
     }
 
     //run query and select user and check combination is in same row
-    $sql = "SELECT email, password, user_cat, user_id FROM users WHERE email = '$email'";
+    $sql = "SELECT email, password, user_cat FROM users WHERE email = '$email'";
     $result = mysqli_query($dbcon, $sql) or die(mysqli_error($dbcon));
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
             if (password_verify($password, $row['password'])) {
                 //return true;
                 $_SESSION['email'] = $email; //initiate session
-                $_SESSION['user_id'] = $row['user_id'];
+
                 $_SESSION['user_cat'] = $row['user_cat'];
 
                 if ($row['user_cat'] == "Student") {

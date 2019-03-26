@@ -2,25 +2,28 @@
 session_start();
 
 if (!isset($_SESSION['email'])){
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
-
+$email = $_SESSION['email'];
 if (isset($_POST['submit'])) {
+
     $title = $_POST['title'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-    $email = $_SESSION['sessid'];
+    #$email = $_SESSION['email'];
     $school = $_POST['school'];
 
-    require_once 'db.php';
+    require_once '../scripts/db.php';
     if ($dbcon === false) {
         die("Error: Could not connect to database" . mysqli_error());
     } else {
+
+
         $sql = "INSERT INTO lecturers (title, fname, lname, email, school) VALUES ('$title', '$fname', '$lname', '$email', '$school')";
         if (mysqli_query($dbcon, $sql)) {
             header ('Location: lecturers.php');
         } else {
-            echo "Error: could not execute" . mysqli_error();
+            echo "Error: could not execute " . mysqli_error($dbcon);
         }
     }
 }
@@ -69,6 +72,9 @@ if (isset($_POST['submit'])) {
 
 </form>
 
+<?php
+echo $email;
 
+?>
 </body>
 </html>
