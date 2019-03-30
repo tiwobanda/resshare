@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['email'])){
-    header('Location: index.php');
+    header('Location: ../index.php');
     }
 
 if (isset($_POST['submit'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
+    $fname = mysqli_real_escape_string($dbcon, $_POST['fname']);
+    $lname = mysqli_real_escape_string($dbcon, $_POST['lname']);
     $email = $_SESSION['email'];
 
     require_once '../scripts/db.php';
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>resshare - Enabling groups to share and review research papers</title>
+    <title>resshare - Enter personal details</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <!-- Latest compiled and minified CSS -->
@@ -46,19 +46,34 @@ if (isset($_POST['submit'])) {
 
 </head>
 <body>
-<h1>resshare</h1>
-<h3>Welcome</h3>
-<p>You have created your account. Now you need to complete your profile so that we set things up for you.</p>
+<?php
+require "../nav-bar.php";
+?>
+<div class="container">
+    <br><br><br><br><br><br>
+    <div class="row">
 
-<p>Please enter your personal details</p>
+        <div class="col-md-6">
+
+            <h2>Well done! Your account is almost ready.</h2>
+            <a>Please enter your personal details</a>
+        </div>
+        <div class="col-md-6">
+
+
+            <div class="card card-body">
+
+
+<h3>Please enter your personal details</h3>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-    <p>First name: <input required name="fname">   </p>
-    <p>Last name: <input required name="lname">   </p>
-    <button name="submit">Submit</button>
+    <p>First name: <br> <input required name="fname" class="form-control">   </p>
+    <p>Last name: <br> <input required name="lname" class="form-control">   </p>
+    <button type="submit" name="submit" class="btn btn-block btn-dark">Submit</button>
 
 </form>
 
-
+            </div>
+        </div>
 </body>
 </html>

@@ -80,17 +80,9 @@ if (isset($_POST['login'])){
 
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-    <a class="navbar-brand" href="index.php">resshare</a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-    </ul>
-</nav>
+<?php
+require "nav-bar.php";
+?>
 
 <div class="container">
     <br><br><br><br><br><br>

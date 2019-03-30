@@ -38,7 +38,7 @@ require "nav-bar-lecturers.html";
 
 <div class="container">
     <div class="jumbotron">
-            <h2>Lecturer</h2>
+            <h2>Lecturers' Portal</h2>
 
     </div>
     <div class="row">

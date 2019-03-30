@@ -51,7 +51,9 @@ if (isset($_POST['submit'])) {
 
 </head>
 <body>
-<h1>resshare</h1>
+<?php
+require "../nav-bar.php";
+?>
 <h3>Welcome</h3>
 <p>You have created your account. Now you need to complete your profile so that we set things up for you.</p>
 

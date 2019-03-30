@@ -34,16 +34,32 @@ if (isset($_POST['logout'])) {
 <?php
 require "nav-bar-students.html";
 ?>
-<h4>Student Dashboard</h4>
 <div class="container">
+    <div class="jumbotron">
+        <h2>Students' Portal</h2>
+
+    </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <h3>Dashboard</h3>
+            <div>
+                <h5>Details</h5>
+                <p>Name: </p>
+                <p>Email:</p>
+                <p>Group:</p>
+            </div>
+            <div>
+                <h5>Operations</h5>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
 
+            </div>
         </div>
-        <div class="col-md-6">
-
+        <div class="col-md-9">
+            Here goes the rest of the content
         </div>
-
     </div>
 </div>
 
