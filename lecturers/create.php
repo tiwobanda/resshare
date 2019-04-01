@@ -7,23 +7,13 @@ if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: index.php');
 }
-//connect to database
-require '../scripts/db.php';
-if ($dbcon === false) {
-    die ("Error: could not connect. " . mysqli_connect_error());
-}
-    $sql= "SELECT * FROM students WHERE grp_id IS NULL";
-    $result = mysqli_query($dbcon, $sql);
-
-
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lecturer  Dashboard - resshare</title>
+    <title>Create Group - resshare</title>
     <link rel="stylesheet" type="text/css" href="..css/style.css">
 
     <!-- Latest compiled and minified CSS -->
@@ -69,23 +59,18 @@ require "nav-bar-lecturers.html";
         </div>
         <div class="col-md-9">
             <h4>Create a Group</h4>
+
+            <a>Creating a group takes 3 easy steps</a>
+            <br>
+            <br>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="form-group">
-                    <p>Name of Group:</p>
+                    <p>1. Choose Name of Group:</p>
                     <p><input type="text" name="grp_name"  required class="form-control"></p>
-                    <p>Select students to add to Group. Hold Ctlr key to select multipple students.</p>
-<p>
-                    <?php
-                    echo "<select size='10' name='members[]' required class='form-control' multiple='multiple'>";
-                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                        echo '<option value="' . $row['student_id'] . '">'  . $row['fname'] . " " . $row['lname'] . '</option>';
-                    }
-                    echo "</select>";
-                    $student_id = $row['student_id']
-                    ?>
-</p>
 
-                   <p> <button class=" btn btn-block btn-dark form-control" type="submit" name="create">Create Group</button></p>
+
+
+                   <p> <button class=" btn btn-block btn-dark form-control" type="submit" name="create">Next</button></p>
                 </div>
             </form>
 
@@ -103,24 +88,22 @@ require "nav-bar-lecturers.html";
 <?php
 if (isset($_POST['create'])){
 
-    $grp_name = mysqli_real_escape_string($dbcon, $_POST['grp_name']);
-    $members = $_POST['members'];
+    //connect to database
+    require_once '../scripts/db.php';
 
-    $query = "INSERT INTO groups (grp_name) VALUES ('$grp_name')";
+    if ($dbcon === false) {
+        die ("Error: could not connect. " . mysqli_connect_error());
+    }
 
-        if (mysqli_query($dbcon, $query)) {
-            $get_grp_id = "SELECT * FROM groups WHERE grp_name == $grp_name";
+    $grp_name = mysqli_real_escape_string($dbcon, $_POST['grp_name']); #strip characters
 
-            $grp_id_result = mysqli_query($dbcon, $get_grp_id) or die ("Bad Query: $get_grp_id");
-            $row2 = ($row2 = mysqli_fetch_array($grp_id_result));
-            $grp_id_from_db = $row2['grp_id'];
+    $query = "INSERT INTO groups (grp_name) VALUES ('$grp_name')"; #attempt to insert into database
 
+        if (mysqli_query($dbcon, $query)) { #test if successful
 
-            foreach ($members as $student_id) {
-                mysqli_query("INSERT INTO grp_members (grp_id, student_id) VALUES ($grp_id_from_db, $student_id)");
-            }
+            $_SESSION['grp_name_session'] = $grp_name; #put group name into session
 
-            header('Location: choose-leader.php');
+            header('Location: add-members.php'); # proceed to next step
         }
 }
 ?>

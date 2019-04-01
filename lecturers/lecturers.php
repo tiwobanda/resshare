@@ -52,7 +52,7 @@ require "nav-bar-lecturers.html";
             <div>
                 <h5>Operations</h5>
                 <ul>
-                    <li><a href="create-group.php">Create Groups</a></li>
+                    <li><a href="create.php">Create Groups</a></li>
                     <li>View Groups</li>
                 </ul>
 
