@@ -109,12 +109,12 @@ require "nav-bar-lecturers.html";
                     die ("Error: could not connect. " . mysqli_connect_error());
                 }
 
-                $student_role = $_POST['leader_id'];
+                $leader_id = $_POST['leader_id'];
 
                     $query = "UPDATE students SET student_role = 'Group Leader' WHERE student_id = $leader_id";
                     $query_result = mysqli_query($dbcon,$query) or die($query);
 
-                header('Location: lecturers.php');
+                header('Location: groups.php');
 
             }
 

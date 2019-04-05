@@ -6,14 +6,15 @@ if (!isset($_SESSION['email'])){
     }
 
 if (isset($_POST['submit'])) {
-    $fname = mysqli_real_escape_string($dbcon, $_POST['fname']);
-    $lname = mysqli_real_escape_string($dbcon, $_POST['lname']);
-    $email = $_SESSION['email'];
 
     require_once '../scripts/db.php';
     if ($dbcon === false) {
         die("Error: Could not connect to database" . mysqli_error());
     } else {
+        $fname = mysqli_real_escape_string($dbcon, $_POST['fname']);
+        $lname = mysqli_real_escape_string($dbcon, $_POST['lname']);
+        $email = $_SESSION['email'];
+
         $sql = "INSERT INTO students (fname, lname, email) VALUES ('$fname', '$lname', '$email')";
         if (mysqli_query($dbcon, $sql)) {
             header ('Location: students.php');

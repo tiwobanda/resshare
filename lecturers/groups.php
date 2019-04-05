@@ -1,21 +1,30 @@
 <?php
 session_start();
 if (!isset($_SESSION['email'])){
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: index.php');
-
 }
+
+    require_once '../scripts/db.php'; # connect to database
+
+    if ($dbcon === false) {
+        die ("Error: could not connect. " . mysqli_connect_error()); # check connection status
+    }
+
+    $query = "SELECT * FROM groups"; # select groups
+
+    $result = mysqli_query($dbcon, $query); # check is successful
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lecturer  Dashboard - resshare</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>Groups - resshare</title>
+    <link rel="stylesheet" type="text/css" href="..css/style.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -38,7 +47,7 @@ require "nav-bar-lecturers.html";
 
 <div class="container">
     <div class="jumbotron">
-            <h2>Lecturers' Portal</h2>
+        <h2>Lecturers' Portal</h2>
 
     </div>
     <div class="row">
@@ -59,7 +68,23 @@ require "nav-bar-lecturers.html";
             </div>
         </div>
         <div class="col-md-9">
-            Here goes the rest of the content
+            <h4>Groups</h4>
+<br>
+            <?php
+
+            if (mysqli_num_rows($result) > 0) {
+                echo '<p>Available Student Groups</p>';
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<p>" .  "<a href='group-pages.php?id={$row['grp_id']}'>" . $row['grp_name'] . "</a>". "<p>";
+                }
+            }else {
+                echo 'No groups have been created. <a href="create.php">Create Group</a>' ;
+            }
+
+
+            ?>
+
+
         </div>
     </div>
 </div>

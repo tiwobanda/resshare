@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_POST['login'])){
+if (isset($_POST['signup'])){
 
     //connect to database
     require 'scripts/db.php';
@@ -96,7 +96,7 @@ require "nav-bar.php";
     <!--<p>Your first name: <input required name="fname" class="form-control">   </p>
     <p>Your last name: <input required name="lname" class="form-control">   </p> -->
 
-        <button type="submit" name="login" class="btn btn-block btn-dark">Sign up</button>
+        <button type="submit" name="signup" class="btn btn-block btn-dark">Sign up</button>
 </form>
     </div>
         </div>

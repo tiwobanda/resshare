@@ -8,37 +8,22 @@ if (isset($_POST['logout'])) {
     header('Location: index.php');
 }
 
-require_once '../scripts/db.php';
-    $session_email = $_SESSION['email'];
+require_once '../scripts/db.php'; # connect to database
 
 if ($dbcon === false) {
-    die("Error: Could not connect to database" . mysqli_connect_error());
+    die ("Error: could not connect. " . mysqli_connect_error()); # check connection status
 }
 
-$query = "SELECT a.*, b.* 
-            FROM students a, groups b 
-            WHERE a.grp_id = b.grp_id AND a.email = '$session_email'";
-    $result = mysqli_query($dbcon, $query);
-    $row = mysqli_fetch_array($result);
+$query = "SELECT * FROM students"; # select groups
 
-$_SESSION['student_id'] = $row['student_id'];
-$_SESSION['fname'] = $row['fname'];
-$_SESSION['lname'] = $row['lname'];
-#$_SESSION['$email'] = $row['email'];
-$_SESSION['grp_name'] = $row['grp_name'];
-$_SESSION['grp_id'] = $row['grp_id'];
-
-
-
-
-
+$result = mysqli_query($dbcon, $query); # check is successful
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Students' Dashboard - resshare</title>
+    <title>Students - resshare</title>
     <!--<link rel="stylesheet" type="text/css" href="../css/style.css"> -->
 
     <!-- Latest compiled and minified CSS -->
@@ -55,12 +40,14 @@ $_SESSION['grp_id'] = $row['grp_id'];
 
 </head>
 <body>
+
 <?php
-require "nav-bar-students.html";
+require "nav-bar-lecturers.html";
 ?>
+
 <div class="container">
     <div class="jumbotron">
-        <h2>Students' Portal</h2>
+        <h2>Lecturers' Portal</h2>
 
     </div>
     <div class="row">
@@ -68,25 +55,40 @@ require "nav-bar-students.html";
             <h3>Dashboard</h3>
             <div>
                 <h5>Details</h5>
-                <p>Name: <?php echo $row['fname'] . " " . $row['lname']?></p>
-                <p>Email: <?php echo $row['email'] ?></p>
-                <p>Group: <?php echo $row['grp_name'] ?></p>
+                <p>Name: </p>
+                <p>Email:</p>
             </div>
             <div>
                 <h5>Operations</h5>
                 <ul>
-                    <li><a href="mygroup.php">My Group</a></li>
-                    <li><a href="upload.php">Upload Paper</a></li>
+                    <li><a href="create.php">Create Groups</a></li>
+                    <li><a href="groups.php">View Groups</a></li>
+
                 </ul>
 
             </div>
         </div>
         <div class="col-md-9">
-            <h3>My Dashboard</h3>
-            <hr>
+            <h4>Students in Class</h4>
+            <?php
+
+            if (mysqli_num_rows($result) > 0) {
+                echo '<p>Students enrolled for this class</p>';
+                #echo "<ol>";
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<p>" . $row['fname'] . " " . $row['lname'] . "</p>";
+                }
+                #echo  "</ol>";
+            }else {
+                echo 'There are no students enrolled for this Class</a>' ;
+            }
+
+            ?>
+
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

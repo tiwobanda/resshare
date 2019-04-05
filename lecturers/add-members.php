@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <head>
         <meta charset="UTF-8">
         <title>Add Members - resshare</title>
-        <link rel="stylesheet" type="text/css" href="..css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
