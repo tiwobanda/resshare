@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['email'])){
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -43,26 +43,30 @@ require "nav-bar-students.html";
     <div class="row">
         <div class="col-md-3">
             <h3>Dashboard</h3>
-            <div>
-                <h5>Details</h5>
+
+            <div class="card">
+                <div class="card-header">Details</div>
+                <div class="card-body">
                 <p>Name: <?php echo $_SESSION['fname'] . " " . $_SESSION['lname']?></p>
                 <p>Email: <?php echo $_SESSION['email'] ?></p>
                 <p>Group: <?php echo $_SESSION['grp_name'] ?></p>
+                </div>
             </div>
-            <div>
-                <h5>Operations</h5>
-                <ul>
-                    <li><a href="mygroup.php">My Group</a></li>
-                    <li><a href="upload.php">Upload Paper</a></li>
-                </ul>
+            <br>
+            <div class="card">
+                <div class="card-header">Operations</div>
+                <div class="card-body">
+                    <p><a href="mygroup.php">My Group</a></p>
+                    <p><a href="upload.php">Upload Paper</a></p>
+                </div>
 
             </div>
         </div>
         <div class="col-md-9">
-            <h3>My Group</h3>
+            <h3>My Group: <?php echo $_SESSION['grp_name'] ?></h3>
 
             <hr>
-
+<div class="jumbotron">
             <h5>My Group Members </h5>
 
             <?php
@@ -89,16 +93,34 @@ require "nav-bar-students.html";
                 }
                 echo "</ul>";
             }else {
-                echo 'There is no one in your group</a>' ;
+                echo "No members have been added to this group yet" ;
             }
+            ?>
 
-
+</div>
+            <?php
             echo '<h5>My Group Papers </h5>';
 
-            $sql = "SELECT * 
-                    FROM papers
-                    WHERE grp_id = '$grp_id'
-                    ORDER BY date DESC";
+            /*$sql = "SELECT s.*, p.*
+                    FROM students s, papers p
+                    WHERE s.grp_id = p.grp_id AND p.grp_id = '$grp_id'
+                    ORDER BY date DESC";*/
+
+//            $sql = "SELECT * FROM papers WHERE grp_id = $grp_id ";
+
+            /*$sql = "SELECT p.*, s.student_id, s.fname, s.lname, s.grp_id
+                    FROM papers p JOIN students s
+                    ON p.grp_id = s.grp_id AND s.grp_id = '$grp_id'
+                    ORDER BY p.grp_id";*/
+
+
+            $sql = "SELECT p.*, s.student_id, s.fname, s.lname, s.grp_id
+                    FROM papers p JOIN students s
+                    ON p.grp_id = s.grp_id AND p.grp_id = $grp_id AND p.student_id = s.student_id
+                    ORDER BY p.grp_id";
+
+
+
 
             $result2 = mysqli_query($dbcon, $sql);
 
@@ -106,9 +128,17 @@ require "nav-bar-students.html";
 
 
                 while ($row2 = mysqli_fetch_array($result2)) {
-                    echo "<p>" .  $row2['pp_title'] . "</p>";
+                    echo "<div class='card'>";
+                   /* echo "<div class='card-header'>" . "<a href='group-papers.php?pid={$row2['pp_id']}'>" . $row2['pp_title'] . " by " . $row2['pp_author'] . "</a>" . "</div>";
+                    echo "<div class='card-body'>" . "Uploaded by " . $row2['fname'] .  " " . $row2['lname'] . " on " . $row2['date'] . "</div>";
+                   */
+                    echo "<div class='card-header'>" . "<a href='group-papers.php?pid={$row2['pp_id']}'>" . $row2['pp_title'] . " by " . $row2['pp_author'] . "</a>" . "</div>";
+                    echo "<div class='card-body'>" . "First Author: " . $row2['pp_author'] . "<br>" . "Uploaded by " . $row2['fname'] .  " " . $row2['lname'] . " on " . $row2['date'] . "</div>";
+                    /*echo "<div class='card-body'>" . "Uploaded by " . $row2['fname'] .  " " . $row2['lname'] . " on " . $row2['date'] . "</div>";*/
+                    echo "</div>" . "<br>";
                 }
 
+                echo "<br";
             }else {
                 echo 'There are no papers uploaded in your group yet' ;
             }
@@ -120,7 +150,12 @@ require "nav-bar-students.html";
 
         </div>
     </div>
+
+
 </div>
+<?php
+require "../footer.html";
+?>
 
 </body>
 </html>

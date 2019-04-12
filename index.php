@@ -102,12 +102,12 @@ require "nav-bar.php";
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="form-group">
                         <p>Enter your Email<br>
-                        <input type="text" name="email" placeholder="email address" required class="form-control"></p>
+                        <input type="text" name="email" required class="form-control"></p>
                         </div>
                             <!-- <span class="error"><?php echo $emailErr;?></span> -->
                         <div class="form-group">
                         <p>Enter your Password<br>
-                            <input type="password" name="password" placeholder="password" required class="form-control"></p>
+                            <input type="password" name="password" required class="form-control"></p>
                             <!-- <span><?php echo $passwordErr ;?></span> -->
                         </div>
                         <p><button type="submit" name="login" class="btn btn-block btn-dark">Sign in</button></p>
