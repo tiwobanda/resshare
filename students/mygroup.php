@@ -66,7 +66,9 @@ require "nav-bar-students.html";
             <h3>My Group: <?php echo $_SESSION['grp_name'] ?></h3>
 
             <hr>
-<div class="jumbotron">
+
+        <div class="jumbotron">
+
             <h5>My Group Members </h5>
 
             <?php
@@ -97,7 +99,8 @@ require "nav-bar-students.html";
             }
             ?>
 
-</div>
+        </div>
+            <div>
             <?php
             echo '<h5>My Group Papers </h5>';
 
@@ -147,15 +150,13 @@ require "nav-bar-students.html";
 
             ?>
 
-
+            </div>
         </div>
     </div>
 
 
 </div>
-<?php
-require "../footer.html";
-?>
+<?php require "../footer.html" ?>
 
 </body>
 </html>

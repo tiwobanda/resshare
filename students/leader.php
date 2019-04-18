@@ -28,9 +28,6 @@ $_SESSION['lname'] = $row['lname'];
 $_SESSION['grp_name'] = $row['grp_name'];
 $_SESSION['grp_id'] = $row['grp_id'];
 
-if ($row['student_role'] == "Group Leader"){
-    header('location:leader.php');
-}
 
 
 
@@ -83,6 +80,7 @@ require "nav-bar-students.html";
                 <h5>Operations</h5>
                 <ul>
                     <li><a href="mygroup.php">My Group</a></li>
+                    <li><a href="allocate.php">Allocate Papers</a></li>
                     <li><a href="upload.php">Upload Paper</a></li>
                 </ul>
 
