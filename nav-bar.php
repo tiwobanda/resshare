@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+<nav class="navbar navbar-expand-sm bg-info navbar-dark sticky-top">
     <a class="navbar-brand" href="index.php">resshare</a>
    <!-- <ul class="navbar-nav">
         <li class="nav-item">

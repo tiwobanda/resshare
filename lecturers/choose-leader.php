@@ -21,7 +21,6 @@ $sql= "SELECT * FROM students WHERE grp_id = '$group_id'";
 
 $result = mysqli_query($dbcon, $sql);
 
-
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +28,7 @@ $result = mysqli_query($dbcon, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Choose Group Leader - resshare</title>
-    <link rel="stylesheet" type="text/css" href="..css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -46,10 +45,12 @@ $result = mysqli_query($dbcon, $sql);
 </head>
 <body>
 
+<header>
 <?php
 require "nav-bar-lecturers.html";
 ?>
-
+</header>
+<main>
 <div class="container">
     <div class="jumbotron">
         <h2>Lecturer</h2>
@@ -125,5 +126,10 @@ require "nav-bar-lecturers.html";
 </div>
 
 
+</main>
+<footer>
+
+    <?php require "../footer.html" ?>
+</footer>
 </body>
 </html>

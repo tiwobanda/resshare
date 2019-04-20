@@ -7,6 +7,29 @@ if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: index.php');
 }
+
+if (isset($_POST['create'])) {
+
+    //connect to database
+    require_once '../scripts/db.php';
+
+    if ($dbcon === false) {
+        die ("Error: could not connect. " . mysqli_connect_error());
+    }
+
+    $grp_name = mysqli_real_escape_string($dbcon, $_POST['grp_name']); #strip characters
+
+    $query = "INSERT INTO groups (grp_name) VALUES ('$grp_name')"; #attempt to insert into database
+
+    if (mysqli_query($dbcon, $query)) { #test if successful
+
+        $_SESSION['grp_name_session'] = $grp_name; #put group name into session
+
+        header('Location: add-members.php'); # proceed to next step
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +37,7 @@ if (isset($_POST['logout'])) {
 <head>
     <meta charset="UTF-8">
     <title>Create Group - resshare</title>
-    <link rel="stylesheet" type="text/css" href="..css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -31,10 +54,13 @@ if (isset($_POST['logout'])) {
 </head>
 <body>
 
+<header>
 <?php
 require "nav-bar-lecturers.html";
 ?>
+</header>
 
+<main>
 <div class="container">
     <div class="jumbotron">
         <h2>Lecturer</h2>
@@ -70,7 +96,7 @@ require "nav-bar-lecturers.html";
 
 
 
-                   <p> <button class=" btn btn-block btn-dark form-control" type="submit" name="create">Next</button></p>
+                   <p> <button class=" btn btn-block btn-info form-control" type="submit" name="create">Next</button></p>
                 </div>
             </form>
 
@@ -81,29 +107,12 @@ require "nav-bar-lecturers.html";
     </div>
 </div>
 
+</main>
+<footer>
 
+    <?php require "../footer.html" ?>
+</footer>
 </body>
 </html>
 
-<?php
-if (isset($_POST['create'])){
 
-    //connect to database
-    require_once '../scripts/db.php';
-
-    if ($dbcon === false) {
-        die ("Error: could not connect. " . mysqli_connect_error());
-    }
-
-    $grp_name = mysqli_real_escape_string($dbcon, $_POST['grp_name']); #strip characters
-
-    $query = "INSERT INTO groups (grp_name) VALUES ('$grp_name')"; #attempt to insert into database
-
-        if (mysqli_query($dbcon, $query)) { #test if successful
-
-            $_SESSION['grp_name_session'] = $grp_name; #put group name into session
-
-            header('Location: add-members.php'); # proceed to next step
-        }
-}
-?>

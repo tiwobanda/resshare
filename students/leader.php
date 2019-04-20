@@ -39,7 +39,7 @@ $_SESSION['grp_id'] = $row['grp_id'];
 <head>
     <meta charset="UTF-8">
     <title>Students' Dashboard - resshare</title>
-    <!--<link rel="stylesheet" type="text/css" href="../css/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -55,9 +55,12 @@ $_SESSION['grp_id'] = $row['grp_id'];
 
 </head>
 <body>
+<header>
 <?php
 require "nav-bar-students.html";
 ?>
+</header>
+<main>
 <div class="container">
     <div class="jumbotron">
         <h2>Students' Portal</h2>
@@ -66,33 +69,23 @@ require "nav-bar-students.html";
     <div class="row">
         <div class="col-md-3">
 
-            <h3>Dashboard</h3>
-            <div class="card">
-                <div class="card-header">Details</div>
-                <div class="card-body">
-                <p>Name: <?php echo $row['fname'] . " " . $row['lname']?></p>
-                <p>Email: <?php echo $row['email'] ?></p>
-                <p>Group: <?php echo $row['grp_name'] ?></p>
-            </div>
-            </div>
-            <br>
-            <div>
-                <h5>Operations</h5>
-                <ul>
-                    <li><a href="mygroup.php">My Group</a></li>
-                    <li><a href="allocate.php">Allocate Papers</a></li>
-                    <li><a href="upload.php">Upload Paper</a></li>
-                </ul>
 
-            </div>
+            <!--Load side bad-->
+            <?php
+            require "side-students.php";
+            ?>
+            <!--side bar end-->
         </div>
         <div class="col-md-9">
-            <h3>My Dashboard</h3>
+            <h3 class="text-info">My Dashboard</h3>
             <hr>
         </div>
     </div>
 </div>
+</main>
+<footer>
 <?php require "../footer.html" ?>
+</footer>
 
 </body>
 </html>

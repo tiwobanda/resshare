@@ -44,11 +44,12 @@ if (isset($_POST['logout'])) {
 
     </head>
     <body>
-
+<header>
     <?php
     require "nav-bar-lecturers.html";
     ?>
-
+</header>
+<main>
     <div class="container">
         <div class="jumbotron">
             <h2>Lecturer</h2>
@@ -93,7 +94,7 @@ if (isset($_POST['logout'])) {
                             ?>
                         </p>
 
-                        <p> <button class=" btn btn-block btn-dark form-control" type="submit" name="add_members">Next</button></p>
+                        <p> <button class=" btn btn-block btn-info form-control" type="submit" name="add_members">Next</button></p>
                     </div>
                 </form>
 <?php
@@ -117,14 +118,9 @@ if (isset($_POST['logout'])) {
                 $grp_id_from_db = $row2['grp_id'];
 
                 foreach ($members as $student_id) {
-                #mysqli_query($dbcon, "SELECT * FROM students WHERE student_id = $student_id");
-                #if ($row['student_id'] = $student_id) {
+
                     mysqli_query($dbcon,"UPDATE students SET grp_id = '$grp_id_from_db' WHERE student_id = $student_id");
-                 #   }
 
-
-
-                #mysqli_query($dbcon,"INSERT INTO grp_members (grp_id, student_id) VALUES ('$grp_id_from_db', '$student_id')");
                 }
                 $_SESSION['group_id_session'] = $grp_id_from_db;
                 header('Location: choose-leader.php');
@@ -137,5 +133,10 @@ if (isset($_POST['logout'])) {
     </div>
 
 
+</main>
+<footer>
+
+    <?php require "../footer.html" ?>
+</footer>
     </body>
-    </html>
+</html>

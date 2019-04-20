@@ -28,7 +28,7 @@ $result = mysqli_query($dbcon, $query); # check is successful
 <head>
     <meta charset="UTF-8">
     <title>Groups - resshare</title>
-    <link rel="stylesheet" type="text/css" href="..css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -44,11 +44,13 @@ $result = mysqli_query($dbcon, $query); # check is successful
 
 </head>
 <body>
+<header>
 
 <?php
 require "nav-bar-lecturers.html";
 ?>
-
+</header>
+<main>
 <div class="container">
     <div class="jumbotron">
         <h2>Lecturers' Portal</h2>
@@ -94,5 +96,10 @@ require "nav-bar-lecturers.html";
 </div>
 
 
+</main>
+<footer>
+
+    <?php require "../footer.html" ?>
+</footer>
 </body>
 </html>

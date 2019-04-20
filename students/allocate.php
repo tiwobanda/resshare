@@ -15,7 +15,6 @@ if ($dbcon === false) {
 }
 
 $grp_id = $_SESSION['grp_id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -61,22 +60,27 @@ require "nav-bar-students.html";
             <!--side bar end-->
         </div>
         <div class="col-md-9">
-            <h3 class="text-info">My Group: <?php echo $_SESSION['grp_name'] ?></h3>
+            <h3 class="text-info">Allocate Papers: <?php echo $_SESSION['grp_name'] ?></h3>
 
             <hr>
 
             <div class="row">
                 <div class="col-md-8">
 
-                    <!-- query and display group papers -->
-
-                    <h6>My Group Papers </h6>
+                    <h6>To allocate a paper to a Group member to review, click on it and you will be taken to the next step. Only unallocated papers are listed.</h6>
                     <?php
 
+
+                    /*$sql = "SELECT pp_id, pp_title, pp_author, grp_id, path, reviewer
+                                FROM papers
+                                WHERE grp_id = '$grp_id'
+                                AND reviewer is NULL";*/
+
                     $sql = "SELECT p.*, s.student_id, s.fname, s.lname, s.grp_id
-                    FROM papers p JOIN students s
-                    ON p.grp_id = s.grp_id AND p.grp_id = $grp_id AND p.student_id = s.student_id
-                    ORDER BY p.grp_id";
+                            FROM papers p JOIN students s
+                            ON p.grp_id = s.grp_id AND p.grp_id = $grp_id AND p.student_id = s.student_id 
+                            ORDER BY p.grp_id";
+
 
                     $result2 = mysqli_query($dbcon, $sql);
 
@@ -88,37 +92,42 @@ require "nav-bar-students.html";
 
                             $update = date_create($row2['date']);
 
-                            echo "<div class='card-header' id='card-reduced-pad'>" . "<a href='group-papers.php?pid={$row2['pp_id']}'>" . $row2['pp_title'] . " by " . $row2['pp_author'] . "</a>" . "</div>";
-                            echo "<div class='card-body' id='card-reduced-pad'>" . " Uploaded by " . $row2['fname'] .  " " . $row2['lname'] . " on " . date_format($update, 'd-m-Y') . "</div>";
+                            echo "<div class='card-header' id='card-reduced-pad'>" . "<a href='allocate-paper.php?pid={$row2['pp_id']}'>" . $row2['pp_title']  . " by " . $row2['pp_author'] . "</a>" . "</div>";
+                            echo "<div class='card-body' id='card-reduced-pad'>" . "Uploaded by " . $row2['fname'] . " "  . $row2['lname'] . " on " . date_format($update, 'd-m-Y') . "</div>";
                             echo "</div>" . "<br>";
 
                         }
 
                         echo "<br";
                     }else {
-                        echo 'There are no papers uploaded in your group yet' ;
+                        echo 'There are no unalloctaed papers in your group' ;
                     }
 
                     ?>
-        <!--end of group papers display -->
-
                 </div>
-
-                <div class="col-md-4">
-
-                    <!-- group members query and display -->
-
-                    <?php require 'grp-members.php' ?>
-
-                </div>
-                <!-- end group members display -->
-
             </div>
 
 
 
+                    <div class="col-md-4">
+
+                        <!-- group members query and display -->
+
+                        <?php require 'grp-members.php' ?>
+
+                    </div>
+                    <!-- end group members display -->
+                </div>
         </div>
-            <div>
+    </div>
+
+
+
+
+
+
+
+
 
 
             </div>
@@ -126,7 +135,7 @@ require "nav-bar-students.html";
     </div>
 
 
-
+</div>
 </main>
 <footer>
 

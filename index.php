@@ -110,7 +110,7 @@ require "nav-bar.php";
                             <input type="password" name="password" required class="form-control"></p>
                             <!-- <span><?php echo $passwordErr ;?></span> -->
                         </div>
-                        <p><button type="submit" name="login" class="btn btn-block btn-dark">Sign in</button></p>
+                        <p><button type="submit" name="login" class="btn btn-block btn-info">Sign in</button></p>
                         <p>No account yet, <a href="signup.php">Sign up now!</a> </p>
                     </form>
 
@@ -125,12 +125,6 @@ require "nav-bar.php";
     </div>
 
 </div>
-
-
-
-
-
-
 
 
 </body>

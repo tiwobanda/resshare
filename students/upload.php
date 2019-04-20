@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Students' Dashboard - resshare</title>
-    <!--<link rel="stylesheet" type="text/css" href="../css/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -95,9 +95,12 @@ if (isset($_POST['submit'])) {
 
 </head>
 <body>
+<header>
 <?php
 require "nav-bar-students.html";
 ?>
+</header>
+<main>
 <div class="container">
     <div class="jumbotron">
         <h2>Students' Portal</h2>
@@ -105,21 +108,11 @@ require "nav-bar-students.html";
     </div>
     <div class="row">
         <div class="col-md-3">
-            <h3>Dashboard</h3>
-            <div>
-                <h5>Details</h5>
-                <p>Name: <?php echo $_SESSION['fname'] . " " . $_SESSION['lname']?></p>
-                <p>Email: <?php echo $_SESSION['email'] ?></p>
-                <p>Group: <?php echo $_SESSION['grp_name'] ?></p>
-            </div>
-            <div>
-                <h5>Operations</h5>
-                <ul>
-                    <li><a href="mygroup.php">My Group</a></li>
-                    <li>Upload Paper</li>
-                </ul>
-
-            </div>
+            <!--Load side bad-->
+            <?php
+            require "side-students.php";
+            ?>
+            <!--side bar end-->
         </div>
         <div class="col-md-9">
             <h3>Upload a Research Paper</h3>
@@ -133,12 +126,17 @@ require "nav-bar-students.html";
                 <a>Select research paper from your computer. Please note: file must be .doc, .docx, .pdf</a>
                 <p><input type="file" name="paper" id=""></p>
 
-                <p><button type="submit" name="submit" class="btn btn-dark">Submit Research Paper</button></p>
+                <p><button type="submit" name="submit" class="btn btn-info form-control">Submit Research Paper</button></p>
 
             </form>
         </div>
     </div>
 </div>
 
+</main>
+<footer>
+
+    <?php require "../footer.html" ?>
+</footer>
 </body>
 </html>
