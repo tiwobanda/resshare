@@ -52,9 +52,10 @@ require "nav-bar-lecturers.html";
             ?>
         </div>
         <div class="col-md-9">
-            <h3 class="text-info">Dashboard</h3>
+            <h3 class="text-info">Papers</h3>
 
             <hr>
+
             <?php
             require_once '../scripts/db.php';
 
@@ -66,30 +67,37 @@ require "nav-bar-lecturers.html";
             FROM papers p
             INNER JOIN students s ON p.student_id = s.student_id";
 
+            $result3 = mysqli_query($dbcon, $sql3)or die ("Bad Query: $sql3");
+
+            $row3 = mysqli_fetch_array($result3);
+
 
 
             $result3 = mysqli_query($dbcon, $sql3);
 
             if (mysqli_num_rows($result3) > 0) {
-                while ($row3 = mysqli_fetch_array($result3)) {
+            while ($row3 = mysqli_fetch_array($result3)) {
 
-                    echo "<div class='card'>";
-                    $update = date_create($row3['date']);
+            echo "<div class='card'>";
+                $update = date_create($row3['date']);
 
-                    echo "<div class='card-header' id='card-reduced-pad'>" . $row3['fname'] . " " . $row3['lname'] . " " . date_format($update, 'd-m-Y') . "</div>";
-                    echo "<div class='card-body' id='card-reduced-pad'>" . "Uploaded a paper: " . "<a href='group-papers.php?pid={$row3['pp_id']}'>" . $row3['pp_title'] . "</a>";
-                    echo  " by " . $row3['pp_author'] . "</div>";
-                    echo "</div>" . "<br>";
+                echo "<div class='card-header' id='card-reduced-pad'>" . "<a href='group-papers.php?pid={$row3['pp_id']}'>" . $row3['pp_title'] . " by " . $row3['pp_author'] . "</a>" . "</div>";
 
-                }
+                echo "<div class='card-body' id='card-reduced-pad'>" . "Uploaded by: " . $row3['fname'] . " " . $row3['lname'] . " on " . date_format($update, 'd-m-Y') . "</div>";
 
-                echo "<br";
+
+                echo "</div>" . "<br>";
+
+            }
+
+            echo "<br";
             }else {
-                echo 'There are no papers uploaded in your class yet' ;
+            echo 'There are no papers uploaded in your class yet' ;
             }
 
 
             ?>
+
 
         </div>
     </div>

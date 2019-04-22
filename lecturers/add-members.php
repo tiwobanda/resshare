@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
     <head>
         <meta charset="UTF-8">
         <title>Add Members - resshare</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/style-all.css">
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -57,23 +57,13 @@ if (isset($_POST['logout'])) {
         </div>
         <div class="row">
             <div class="col-md-3">
-                <h3>Dashboard</h3>
-                <div>
-                    <h5>Details</h5>
-                    <p>Name: </p>
-                    <p>Email:</p>
-                </div>
-                <div>
-                    <h5>Operations</h5>
-                    <ul>
-                        <li>Create Groups</li>
-                        <li>View Groups</li>
-                    </ul>
-
-                </div>
+                <?php
+                require ('side-lecturers.php')
+                ?>
             </div>
             <div class="col-md-9">
-                <h4>Add Members to <?php echo $grp_name_session ?></h4>
+                <h3 class="text-info">Add Members to <?php echo $grp_name_session ?></h3>
+                <hr>
 
                 <a>Creating a group takes 3 easy steps</a>
                 <br>

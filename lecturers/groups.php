@@ -54,24 +54,15 @@ require "nav-bar-lecturers.html";
     </div>
     <div class="row">
         <div class="col-md-3">
-            <h3>Dashboard</h3>
-            <div>
-                <h5>Details</h5>
-                <p>Name: </p>
-                <p>Email:</p>
-            </div>
-            <div>
-                <h5>Operations</h5>
-                <ul>
-                    <li><a href="create.php">Create Groups</a></li>
-                    <li><a href="groups.php">View Groups</a></li>
-                </ul>
 
-            </div>
+            <?php
+            require ('side-lecturers.php')
+            ?>
+
         </div>
         <div class="col-md-9">
-            <h4>Groups</h4>
-<br>
+            <h3 class="text-info">Groups</h3>
+<hr>
             <?php
 
             if (mysqli_num_rows($result) > 0) {

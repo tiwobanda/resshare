@@ -72,6 +72,10 @@ require "nav-bar-students.html";
 
                     <h6>My Group Papers </h6>
                     <?php
+                    if ($grp_id == FALSE) {
+                        echo "You have not been assigned a group. Wait for your Lecturer to allocate you.";
+
+                    } else {
 
                     $sql = "SELECT p.*, s.student_id, s.fname, s.lname, s.grp_id
                     FROM papers p JOIN students s
@@ -97,6 +101,7 @@ require "nav-bar-students.html";
                         echo "<br";
                     }else {
                         echo 'There are no papers uploaded in your group yet' ;
+                    }
                     }
 
                     ?>

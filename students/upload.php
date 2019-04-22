@@ -115,8 +115,17 @@ require "nav-bar-students.html";
             <!--side bar end-->
         </div>
         <div class="col-md-9">
-            <h3>Upload a Research Paper</h3>
+            <h3 class="text-info">Upload a Research Paper</h3>
             <hr>
+
+            <?php
+            if ($_SESSION['grp_id'] == FALSE) {
+                echo "You have not been assigned a group. Wait for your Lecturer to allocate you.";
+
+            } else {
+
+
+            ?>
 
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
 
@@ -129,6 +138,9 @@ require "nav-bar-students.html";
                 <p><button type="submit" name="submit" class="btn btn-info form-control">Submit Research Paper</button></p>
 
             </form>
+                <?php
+            }
+            ?>
         </div>
     </div>
 </div>

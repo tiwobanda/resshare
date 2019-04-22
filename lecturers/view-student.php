@@ -14,9 +14,17 @@ if ($dbcon === false) {
     die ("Error: could not connect. " . mysqli_connect_error()); # check connection status
 }
 
-$query = "SELECT * FROM students"; # select groups
+$student_id=$_GET['sid'];
 
-$result = mysqli_query($dbcon, $query); # check is successful
+$student_name = $_SESSION['student_name'];
+
+$query4 = "SELECT * FROM students WHERE student_id = $student_id";
+
+
+$result4 = mysqli_query($dbcon, $query4);
+$row4 = mysqli_fetch_array($result4);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -62,27 +70,46 @@ require "nav-bar-lecturers.html";
 
                     </div>
         <div class="col-md-9">
-            <h3 class=""text-info>Students in Class</h3>
+            <h3 class="text-info">Student: <?php echo $row4['fname']. " " .$row4['lname'] ?></h3>
             <hr>
-            <?php
+            <div class="row">
 
-            if (mysqli_num_rows($result) > 0) {
-                echo '<p>Students enrolled for this class</p>';
-                #echo "<ol>";
-                while ($row = mysqli_fetch_array($result)) {
-                    echo "<p>" . "<a href='view-student.php?sid={$row['student_id']}'>" .$row['fname'] . " " . $row['lname'] . "</p>" . "</p>";
-                    if (isset($_SESSION['student_name'])){
-                        unset($_SESSION['student_name']);
+                <div class="col-md-6">
+                    <div id="sidebside">
+                        <h6>Papers Uploaded by Student</h6>
+
+                        <?php
+
+                        $sql = "SELECT pp_id, pp_title, pp_author, grp_id, path, reviewer FROM papers WHERE student_id = '$student_id'";
+
+                        $result = mysqli_query($dbcon, $sql)or die ("Bad Query: $sql");
+
+                        if (mysqli_num_rows($result) > 0) {
+
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<h6>" . "<a href='group-papers.php?pid={$row['pp_id']}'>" . $row['pp_title']   .  " by " . $row['pp_author'] . "</a>" . "<h6>";
+
+                            }
+                        } else {
+                            echo "Student has not uploaded a paper yet.";
                         }
-                    $_SESSION['student_name'] = $row['fname'];
-                }
-                #echo  "</ol>";
 
-            }else {
-                echo 'There are no students enrolled for this Class</a>' ;
-            }
 
-            ?>
+                        ?>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    </div>
+                    <br>
+                    <!--<div id="sidebside">
+                        <h6>Papers I have Reviewed</h6>
+                    </div>-->
+
+                </div>
+
+            </div>
 
         </div>
     </div>

@@ -70,7 +70,7 @@ require "../nav-bar.php";
 
     <p>First name: <br> <input required name="fname" class="form-control">   </p>
     <p>Last name: <br> <input required name="lname" class="form-control">   </p>
-    <button type="submit" name="submit" class="btn btn-block btn-dark">Submit</button>
+    <button type="submit" name="submit" class="btn btn-block btn-info">Submit</button>
 
 </form>
 

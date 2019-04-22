@@ -25,7 +25,10 @@ $_SESSION['student_id'] = $row['student_id'];
 $_SESSION['fname'] = $row['fname'];
 $_SESSION['lname'] = $row['lname'];
 $_SESSION['grp_name'] = $row['grp_name'];
+
 $_SESSION['grp_id'] = $row['grp_id'];
+
+
 
 if ($row['student_role'] == "Group Leader"){
     $_SESSION['group_leader'] = $row['student_role'];
@@ -71,8 +74,15 @@ require "nav-bar-students.html";
     </div>
     <div class="row">
         <div class="col-md-3">
+            <?php
 
+            $grp_id = $_SESSION['grp_id'];
+
+            if ($grp_id == TRUE) {
+
+            ?>
 <!--            <h3 class="text-info">Dashboard</h3>-->
+
             <div class="card">
                 <div class="card-header bg-info"><h5>Details</h5></div>
                 <div class="card-body">
@@ -81,6 +91,11 @@ require "nav-bar-students.html";
                 <p>Group: <?php echo $row['grp_name'] ?></p>
             </div>
             </div>
+
+            <?php
+            }
+            ?>
+
             <br>
             <div class="card">
                 <div class="card-header bg-info"><h5>Operations</h5></div>
@@ -103,7 +118,13 @@ require "nav-bar-students.html";
                     <?php
 
 
-$grp_id = $_SESSION['grp_id'];
+
+
+                    if ($grp_id == FALSE) {
+                        echo "You have not been assigned a group. Wait for your Lecturer to allocate you.";
+
+                    } else {
+
                     $sql = "SELECT r.rev_id, r.pp_id, r.review, s.fname, s.lname, p.pp_title, p.pp_author, p.date  
                     FROM reviews r
                     INNER JOIN papers p ON r.pp_id = p.pp_id
@@ -129,6 +150,7 @@ $grp_id = $_SESSION['grp_id'];
                     }else {
                         echo 'There are no papers uploaded in your class yet' ;
                     }
+                    }
 
                     ?>
                     <!--end query and display reviews -->
@@ -136,6 +158,45 @@ $grp_id = $_SESSION['grp_id'];
                 </div>
                 <div class="col-md-6">
                     <h6>Recent Paper Uploads from your Group</h6>
+
+                    <?php
+
+                    if ($grp_id == FALSE) {
+                        echo "You have not been assigned a group. Wait for your Lecturer to allocate you.";
+
+                    } else {
+
+                        $sql3 = "SELECT p.pp_id, p.pp_title, p.student_id, p.path, p.date, p.pp_author, s.fname, s.lname  
+                    FROM papers p
+                    INNER JOIN students s ON p.student_id = s.student_id
+                    
+                    WHERE p.grp_id = $grp_id";
+
+                        $result3 = mysqli_query($dbcon, $sql3);
+
+                        if (mysqli_num_rows($result3) > 0) {
+                            while ($row3 = mysqli_fetch_array($result3)) {
+
+                                echo "<div class='card'>";
+                                $update = date_create($row3['date']);
+
+                                echo "<div class='card-header' id='card-reduced-pad'>" . $row3['fname'] . " " . $row3['lname'] . " " . date_format($update, 'd-m-Y') . "</div>";
+                                echo "<div class='card-body' id='card-reduced-pad'>" . "Uploaded a paper: " . "<a href='group-papers.php?pid={$row3['pp_id']}'>" . $row3['pp_title'] . "</a>";
+                                echo  " by " . $row3['pp_author'] . "</div>";
+                                echo "</div>" . "<br>";
+
+                            }
+
+                            echo "<br";
+                        }else {
+                            echo 'There are no papers uploaded in your class yet' ;
+                        }
+                    }
+
+                    ?>
+
+
+
 
                 </div>
 

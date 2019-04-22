@@ -12,3 +12,14 @@ body, html {
 }
 
 
+h2 {
+    color: teal;
+}
+
+h3 {
+    color: teal;
+}
+
+a:link {
+    color: teal;
+}

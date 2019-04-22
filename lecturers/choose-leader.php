@@ -58,23 +58,15 @@ require "nav-bar-lecturers.html";
     </div>
     <div class="row">
         <div class="col-md-3">
-            <h3>Dashboard</h3>
-            <div>
-                <h5>Details</h5>
-                <p>Name: </p>
-                <p>Email:</p>
-            </div>
-            <div>
-                <h5>Operations</h5>
-                <ul>
-                    <li>Create Groups</li>
-                    <li>View Groups</li>
-                </ul>
 
-            </div>
+            <?php
+            require ('side-lecturers.php')
+            ?>
+
         </div>
         <div class="col-md-9">
-            <h4>Choose Leader for <?php echo $grp_name_session ?></h4>
+            <h3 class="text-info">Choose Leader for <?php echo $grp_name_session ?></h3>
+            <hr>
 
             <a>Creating a group takes 3 easy steps</a>
             <br>
@@ -95,7 +87,7 @@ require "nav-bar-lecturers.html";
                         ?>
                     </p>
 
-                    <p> <button class=" btn btn-block btn-dark form-control" type="submit" name="create_group">Create Group</button></p>
+                    <p> <button class=" btn btn-block btn-info form-control" type="submit" name="create_group">Create Group</button></p>
                 </div>
             </form>
 

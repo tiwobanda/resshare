@@ -44,19 +44,6 @@ if (isset($_POST['login'])){
     }
 }
 
-//    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-//    $active = $row['active'];
-//    $count = mysqli_num_rows($result);
-//    if ($count == 1) {
-
-//    $_SESSION['sessid'] = $email; //initiate session
-//    header('Location: students.php'); //redirect upon success
-
-//} else {
-//    session_destroy();
-//}
-//}
-//;
 ?>
 
 <!DOCTYPE html>

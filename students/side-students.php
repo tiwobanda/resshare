@@ -1,6 +1,10 @@
 
 <!--            <h3 class="text-info">Dashboard</h3>-->
+<?php
 
+if ($_SESSION['grp_id'] == TRUE) {
+
+?>
             <div class="card">
                 <div class="card-header bg-info"><h5>Details</h5></div>
                 <div class="card-body">
@@ -9,6 +13,9 @@
 <p>Group: <?php echo $_SESSION['grp_name'] ?></p>
 </div>
 </div>
+    <?php
+}
+    ?>
 <br>
 <?php
 if(isset($_SESSION['group_leader'])){

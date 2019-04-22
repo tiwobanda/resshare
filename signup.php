@@ -110,7 +110,7 @@ require "nav-bar.php";
 </main>
 <footer>
 
-    <?php require "../footer.html" ?>
+
 </footer>
 </body>
 </html>

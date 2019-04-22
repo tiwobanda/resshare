@@ -99,6 +99,9 @@ require "nav-bar-students.html";
         <div id="sidebside">
         <h6>My Paper Review Assignments</h6>
             <?php
+
+            if ($student_id == TRUE){
+
             $query = "SELECT pp_id, pp_title, pp_author, grp_id, path FROM papers WHERE reviewer = $student_id";
 
             $result2 = mysqli_query($dbcon, $query)or die ("Bad Query: $sql");
@@ -114,15 +117,16 @@ require "nav-bar-students.html";
             }else {
                 echo "You do not have a new paper assignment.";
             }
+            }
 
 
 
             ?>
         </div>
 <br>
-        <div id="sidebside">
+        <!--<div id="sidebside">
             <h6>Papers I have Reviewed</h6>
-        </div>
+        </div>-->
 
     </div>
 
